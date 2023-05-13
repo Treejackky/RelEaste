@@ -1,0 +1,81 @@
+{
+  "items": [
+    {
+      "item_id": "lh9a2g6g",
+      "email": "lh9a2g6g@gmail.com",
+      "features": {
+        "area": 75,
+        "bedroom": 3,
+        "bathroom": 5,
+        "living": 1,
+        "kitchen": 4,
+        "dining": 1,
+        "parking": 2
+      },
+      "img": [
+        "https://xtalhero.s3.ap-southeast-1.amazonaws.com/asset/image/674.png"
+      ],
+      "lat": "13.725143206505939",
+      "lng": "100.47313068062067",
+      "price": 163390
+    },
+    {
+      "item_id": "lh9a2ss6",
+      "email": "lh9a2ss6@gmail.com",
+      "features": {
+        "area": 75,
+        "bedroom": 3,
+        "bathroom": 4,
+        "living": 1,
+        "kitchen": 3,
+        "dining": 3,
+        "parking": 2
+      },
+      "img": [
+        "https://xtalhero.s3.ap-southeast-1.amazonaws.com/asset/image/331.png"
+      ],
+      "lat": "13.74750584036026",
+      "lng": "100.47469977289438",
+      "price": 916189
+    },
+    {
+      "item_id": "lh9a3zfr",
+      "email": "lh9a3zfr@gmail.com",
+      "features": {
+        "area": 19,
+        "bedroom": 1,
+        "bathroom": 5,
+        "living": 5,
+        "kitchen": 1,
+        "dining": 2,
+        "parking": 5
+      },
+      "img": [
+        "https://xtalhero.s3.ap-southeast-1.amazonaws.com/asset/image/708.png"
+      ],
+      "lat": "13.813553717987674",
+      "lng": "100.58089781552553",
+      "price": 911854
+    },
+    {
+      "item_id": "lh9a58by",
+      "email": "lh9a58by@gmail.com",
+      "features": {
+        "area": 76,
+        "bedroom": 5,
+        "bathroom": 5,
+        "living": 2,
+        "kitchen": 1,
+        "dining": 1,
+        "parking": 1
+      },
+      "img": [
+        "https://xtalhero.s3.ap-southeast-1.amazonaws.com/asset/image/392.png"
+      ],
+      "lat": "13.766561393749184",
+      "lng": "100.57854417711495",
+      "price": 840117
+    }
+  ],
+  "token": "f9adf8597d16de8d17dfb4979ffd4cba0ce703a41e628f190fc101b46233cc9454cb4cedf1f98d6d7e79c9e31534e251e731cc6f0d022313"
+}
