@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screen/Home.dart';
+import 'package:flutter_application_1/screen/admin/Home.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
 import 'package:http/http.dart' as http;
 

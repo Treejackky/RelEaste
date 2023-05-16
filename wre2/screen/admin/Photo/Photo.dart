@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import '../Confirm/confirm.dart';
+import '../Confirm/finish_view.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Photo extends StatefulWidget {

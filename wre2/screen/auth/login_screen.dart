@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screen/auth/services/signup_service.dart';
+import 'services/login_services.dart';
 
-class SignUpScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -34,7 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
+        title: Text('Login'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -54,13 +53,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   if (value!.isEmpty) {
                     return 'Please enter your email';
                   }
-                  // Regular expression pattern for email validation
-                  String pattern =
-                      r'^([a-zA-Z0-9_\-\.\+])+\@([a-zA-Z0-9\-])+\.([a-zA-Z0-9]{2,4})+$';
-                  RegExp regExp = new RegExp(pattern);
-                  if (!regExp.hasMatch(value)) {
-                    return 'Please enter a valid email';
-                  }
                   return null;
                 },
               ),
@@ -77,35 +69,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   if (value!.isEmpty) {
                     return 'Please enter your password';
                   }
-                  if (value.length < 6) {
-                    return 'Password must be at least 6 characters long';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                controller: _confirmPasswordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Confirm Password',
-                  prefixIcon: Icon(Icons.lock),
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please confirm your password';
-                  }
-                  if (value != _passwordController.text) {
-                    return 'Passwords do not match';
-                  }
                   return null;
                 },
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _submitForm,
-                child: Text('Register'),
+                onPressed: () {
+                  _submitForm();
+                },
+                child: Text('Login'),
+              ),
+              SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/signup');
+                },
+                child: Text('Sign up'),
               ),
             ],
           ),
@@ -114,3 +93,5 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 }
+
+//  { email: 'a@email', password: '123456' }

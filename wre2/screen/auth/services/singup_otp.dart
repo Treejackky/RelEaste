@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-
+import 'package:flutter_application_1/screen/admin/Home.dart';
 import 'package:flutter_application_1/screen/auth/login_screen.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
 import 'package:http/http.dart' as http;
@@ -51,6 +51,7 @@ class _GetOTPState extends State<GetOTP> {
             (Route<dynamic> route) => false,
           );
         } else {
+          // token is null, go back to LoginScreen
           await Future.delayed(Duration(seconds: 3));
           setState(() {
             _isLoading = false;
@@ -68,6 +69,9 @@ class _GetOTPState extends State<GetOTP> {
 
   @override
   Widget build(BuildContext context) {
+    final body = json.encode({
+      'token': widget.token.toString(),
+    });
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

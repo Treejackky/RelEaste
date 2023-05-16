@@ -43,7 +43,11 @@ class GetToken extends StatelessWidget {
       'email': formValues['email']?.text,
       'password': formValues['password']?.text,
     });
+
+    // Send the request and navigate to the home screen
     sendRequest(context, body);
+
+    // Return a loading indicator while waiting for the response
     return Scaffold(
       body: Center(
         child: CircularProgressIndicator(),

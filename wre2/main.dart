@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'screen/auth/login_screen.dart';
 import 'screen/auth/signup_screen.dart';
-import 'screen/admin/Item/Item.dart';
-import 'screen/admin/Home.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'screen/admin/ReI/Item.dart';
+import 'screen/Home.dart';
 
-void main() async {
-  await Hive.initFlutter();
+void main() {
   runApp(MyApp());
 }
 
@@ -22,8 +19,12 @@ class MyApp extends StatelessWidget {
         '/': (context) => LoginScreen(),
         '/signup': (context) => SignUpScreen(),
         '/logout': (context) => LoginScreen(),
-        '/home': (context) => HomeScreen(token: ''),
-        '/item': (context) => RealEstateForm(token: ''),
+        '/home': (context) => HomeScreen(
+              token: '',
+            ),
+        '/item': (context) => RealEstateForm(
+              token: '',
+            ),
       },
     );
   }

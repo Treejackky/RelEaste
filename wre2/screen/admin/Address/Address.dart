@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Address/model/JsonData.dart';
 import '../Address/services/json_services.dart';
-import '../Map/map.dart';
+import '../Map/MapScreen.dart';
 
 class AddressScreen extends StatefulWidget {
   final Map<String, Object?> formValues;
@@ -19,6 +19,7 @@ class AddressScreen extends StatefulWidget {
 
 class _AddressScreenState extends State<AddressScreen> {
   TextEditingController _textEditingController = TextEditingController();
+  List<AddressData> _data = [];
   List<AddressData> _filteredData = [];
 
   @override
@@ -48,10 +49,12 @@ class _AddressScreenState extends State<AddressScreen> {
                   List<AddressData> filteredData = JsonService()
                       .filterAddressDataByZipcode(fetchedData, input);
                   setState(() {
+                    _data = fetchedData;
                     _filteredData = filteredData;
                   });
                 } else {
                   setState(() {
+                    _data = [];
                     _filteredData = [];
                   });
                 }

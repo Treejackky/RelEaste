@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screen/Home.dart';
+import 'package:flutter_application_1/screen/admin/Home.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
 
 import 'package:http/http.dart' as http;
@@ -31,7 +31,6 @@ class GetToken extends StatelessWidget {
             (Route<dynamic> route) => false,
           );
         } else {
-          // token is null, go back to LoginScreen
           showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
@@ -63,10 +62,8 @@ class GetToken extends StatelessWidget {
       'password': formValues['password']?.text,
     });
 
-    // Send the request and navigate to the home screen
     sendRequest(context, body);
 
-    // Return a loading indicator while waiting for the response
     return Scaffold(
       body: Center(
         child: CircularProgressIndicator(),
