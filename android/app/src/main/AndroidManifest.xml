@@ -2,10 +2,12 @@
     package="com.example.flutter_application_1">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+   
    <application
-        android:label="Suki Dara"
+        android:label="RealEastet"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"
