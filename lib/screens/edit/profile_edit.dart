@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/route_names.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:go_router/go_router.dart';
 
-class Profile extends StatefulWidget {
+class ProfileEdit extends StatefulWidget {
+  const ProfileEdit({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
+
+  final Map<String, dynamic> data;
   @override
-  _ProfileState createState() => _ProfileState();
+  _ProfileEditState createState() => _ProfileEditState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfileEditState extends State<ProfileEdit> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController facebookIdController = TextEditingController();
   final _storage = const FlutterSecureStorage();
 
   Future<Map<String, String?>> readSecureData() async {
     final email = await _storage.read(key: 'email');
-    final fb_id = await _storage.read(key: 'fb_id');
+    final line_id = await _storage.read(key: 'line_id');
     return {
       'email': email,
-      'fb_id': fb_id,
+      'line_id': line_id,
     };
   }
 
@@ -26,83 +30,8 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text('Profile Edit'),
         centerTitle: true,
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            Container(
-              height: 100, // Adjust the height to make the area smaller
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: const Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Hello Tree',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('home'),
-              onTap: () {
-                context.goNamed(RouteNames.loading, queryParameters: {
-                  "fn": "get",
-                  "route": "home",
-                });
-              },
-            ),
-            const Divider(
-              height: 1,
-              thickness: 1,
-            ),
-            ListTile(
-              leading: const Icon(Icons.admin_panel_settings),
-              title: const Text('profile'),
-              onTap: () {
-                context.goNamed(RouteNames.profile);
-              },
-            ),
-            const Divider(
-              height: 1,
-              thickness: 1,
-            ),
-            ListTile(
-              title: const Text('property'),
-              leading: const Icon(Icons.add_home_work_outlined),
-              onTap: () {
-                context.pushNamed(
-                  RouteNames.property,
-                );
-              },
-            ),
-            const Divider(
-              height: 1,
-              thickness: 1,
-            ),
-            ListTile(
-              title: const Text('Logout'),
-              //add icon
-              leading: const Icon(Icons.logout),
-              onTap: () {
-                //destroy SecureStorage
-
-                context.goNamed(RouteNames.loading, queryParameters: {
-                  "fn": "get",
-                  "route": "logout",
-                });
-              },
-            ),
-          ],
-        ),
       ),
       body: FutureBuilder<Map<String, String?>>(
         future: readSecureData(),
@@ -110,7 +39,7 @@ class _ProfileState extends State<Profile> {
           if (snapshot.hasData) {
             final data = snapshot.data!;
             final email = data['email'] ?? '';
-            final fb_id = data['fb_id'] ?? '';
+            final fb_id = data['line_id'] ?? '';
             emailController.text = email;
             facebookIdController.text = fb_id;
             return RefreshIndicator(
@@ -140,21 +69,17 @@ class _ProfileState extends State<Profile> {
                           children: [
                             TextField(
                               controller: emailController,
-                              enabled:
-                                  false, // Set enabled to false to make it read-only
                               decoration: InputDecoration(
                                 labelText: 'Email',
                               ),
+                              enabled: false,
                             ),
                             const SizedBox(height: 16),
                             TextField(
                               controller: facebookIdController,
-                              enabled:
-                                  false, // Set enabled to false to make it read-only
-                              keyboardType: TextInputType.number,
                               maxLength: 15,
                               decoration: InputDecoration(
-                                labelText: 'Facebook ID (15 digits)',
+                                labelText: 'Line ID ',
                               ),
                             ),
                           ],
@@ -177,12 +102,21 @@ class _ProfileState extends State<Profile> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.edit),
+        child: const Icon(Icons.save),
         onPressed: () {
-          context.pushNamed(RouteNames.profileEdit);
+          widget.data['fn'] = 'edit_user';
+          widget.data['body'] = {"line_id": facebookIdController.text};
+          Navigator.pushNamed(context, '/api').then((_) =>
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/home', (route) => false));
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
+  }
+
+  Future<void> writeSecureData(String key, String value) async {
+    await _storage.write(key: key, value: value);
   }
 
   Future<void> _refreshData() async {

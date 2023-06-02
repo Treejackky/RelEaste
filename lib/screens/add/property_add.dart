@@ -1,9 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:go_router/go_router.dart';
-import 'package:flutter_application_1/route_names.dart';
 
 class Property extends StatefulWidget {
   const Property({Key? key}) : super(key: key);
@@ -57,8 +53,8 @@ class _PropertyState extends State<Property> {
       await writeSecureData('kitchen', _kitchen.toString());
       await writeSecureData('dining', _dining.toString());
       await writeSecureData('parking', _parking.toString());
+      Navigator.of(context).pushNamed('/address');
       // ignore: use_build_context_synchronously
-      context.pushNamed(RouteNames.address);
     }
   }
 

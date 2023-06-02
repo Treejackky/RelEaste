@@ -1,122 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screen/admin/features/edit/profile_edit.dart';
-import 'package:flutter_application_1/screen/admin/features/home_page.dart';
-import 'package:flutter_application_1/screen/admin/features/ui/detaill_page.dart';
-import 'package:flutter_application_1/screen/admin/features/ui/filter_city.dart';
-import 'package:flutter_application_1/screen/admin/features/ui/filter_map.dart';
-import 'package:flutter_application_1/screen/admin/features/ui/profile_page.dart';
+import 'screens/add/address_add.dart';
+import 'screens/add/form.dart';
+import 'screens/add/map_add.dart';
+import 'screens/add/photo_add.dart';
+import 'screens/add/property_add.dart';
+import 'screens/auth/otp.dart';
+import 'screens/auth/register.dart';
+import 'screens/edit/profile_edit.dart';
+import 'screens/login.dart';
+import 'screens/api.dart';
+import 'screens/detail.dart';
+import 'screens/calculator.dart';
+import 'screens/profile.dart';
+import 'screens/home.dart';
+import 'screens/serach_map.dart';
 
-import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-//pages
-import 'route_names.dart';
-import 'package:flutter_application_1/screen/admin/auth/login_page.dart';
-import 'package:flutter_application_1/screen/admin/features/services/loading.dart';
-import 'package:flutter_application_1/screen/admin/auth/register_page.dart';
-import 'package:flutter_application_1/screen/admin/auth/otp_page.dart';
-import 'package:flutter_application_1/screen/admin/features/add/map_add.dart';
-import 'package:flutter_application_1/screen/admin/features/add/photo_add.dart';
-import 'package:flutter_application_1/screen/admin/features/add/property_add.dart';
-import 'package:flutter_application_1/screen/admin/features/add/address_add.dart';
-import 'package:flutter_application_1/screen/admin/features/add/form.dart';
-
-void main() async {
-  await Hive.initFlutter();
-  runApp(MyApp());
+void main() {
+  runApp(const MainApp());
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+Map<String, dynamic> _data = {
+//api
+  'fn': 'get',
+  'body': {},
+//items
+  'index': 0,
+  'items': [], //from server
+//NavBar
+  'nav_id': 0,
+  'title': 'Home',
+//profile
+  'favorite': [], //from server
+  'contact': '',
+//admin
+  'type': '',
+  'lat': 0.0,
+  'lng': 0.0,
+};
+
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: "Go Router",
-      routerConfig: _router,
+    return MaterialApp(
+      initialRoute: '/login',
+      routes: <String, WidgetBuilder>{
+        '/home': (BuildContext context) => Home(
+              data: _data,
+            ),
+        '/login': (BuildContext context) => Login(data: _data),
+        '/register': (BuildContext context) => Register(data: _data),
+        '/otp': (BuildContext context) => Otp(data: _data),
+        '/api': (BuildContext context) => Api(data: _data),
+        '/detail': (BuildContext context) => Detail(data: _data),
+        '/calculator': (BuildContext context) => Calculator(),
+        '/property': (BuildContext context) => Property(),
+        '/address': (BuildContext context) => AddressPage(),
+        '/map': (BuildContext context) => MapPage(),
+        '/photo': (BuildContext context) => Photo(),
+        '/form': (BuildContext context) => FormPage(data: _data),
+        '/profile': (BuildContext context) => Profile(),
+        '/profile_edit': (BuildContext context) => ProfileEdit(data: _data),
+        '/search_map': (BuildContext context) => FilterMap(data: _data),
+      },
     );
   }
-
-  final GoRouter _router = GoRouter(routes: [
-    GoRoute(
-      name: RouteNames.login,
-      path: '/',
-      builder: (context, state) => const LoginPage(),
-    ),
-    GoRoute(
-      name: RouteNames.loading,
-      path: '/loading',
-      builder: (context, state) => Loading(
-        fn: state.queryParameters["fn"]!,
-        route: state.queryParameters["route"]!,
-      ),
-    ),
-    GoRoute(
-      name: RouteNames.register,
-      path: '/register',
-      builder: (context, state) => const RegisterPage(),
-    ),
-    GoRoute(
-      name: RouteNames.otp,
-      path: '/otp',
-      builder: (context, state) => const OTPPage(),
-    ),
-    GoRoute(
-      name: RouteNames.home,
-      path: '/home',
-      builder: (context, state) => const HomePage(),
-    ),
-    GoRoute(
-      name: RouteNames.profile,
-      path: '/profile',
-      builder: (context, state) => Profile(),
-    ),
-    GoRoute(
-      name: RouteNames.property,
-      path: '/property',
-      builder: (context, state) => const Property(),
-    ),
-    GoRoute(
-      name: RouteNames.address,
-      path: '/address',
-      builder: (context, state) => const AddressPage(),
-    ),
-    GoRoute(
-      name: RouteNames.map,
-      path: '/map',
-      builder: (context, state) => const MapPage(),
-    ),
-    GoRoute(
-      name: RouteNames.photo,
-      path: '/photo',
-      builder: (context, state) => const Photo(),
-    ),
-    GoRoute(
-      name: RouteNames.form,
-      path: '/form',
-      builder: (context, state) => const FormPage(),
-    ),
-    GoRoute(
-      name: RouteNames.detail,
-      path: '/detail',
-      builder: (context, state) => const Detail(
-        itemId: '',
-      ),
-    ),
-    GoRoute(
-      name: RouteNames.profileEdit,
-      path: '/profileEdit',
-      builder: (context, state) => ProfileEdit(),
-    ),
-    GoRoute(
-      name: RouteNames.filterSearch,
-      path: '/filterSearch',
-      builder: (context, state) => const FilterSearch(),
-    ),
-    GoRoute(
-      name: RouteNames.filtermap,
-      path: '/filtermap',
-      builder: (context, state) => const FilterMap(),
-    )
-  ]);
 }
-//profileEdit

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/route_names.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -51,7 +49,7 @@ class _MapPage extends State<MapPage> {
                     await writeSecureData('lat', location.latitude.toString());
                     await writeSecureData(
                         'long', location.longitude.toString());
-                    context.pushNamed(RouteNames.photo);
+                    Navigator.of(context).pushNamed('/photo');
                   },
                   child: const Text('Take Photo')),
             ],

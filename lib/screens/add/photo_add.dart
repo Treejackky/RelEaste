@@ -5,10 +5,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../../../route_names.dart';
 
 class Photo extends StatefulWidget {
   const Photo({super.key});
@@ -56,7 +53,7 @@ class _PhotoState extends State<Photo> {
                     base64List.add(_base64);
                   }
                   await writeSecureData('img', json.encode(base64List));
-                  context.pushNamed(RouteNames.form);
+                  Navigator.of(context).pushNamed('/form');
                 } else {
                   showDialog(
                     context: context,

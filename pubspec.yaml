@@ -61,6 +61,12 @@ dependencies:
   flutter_svg: ^1.0.0
   cached_network_image: ^3.1.0
   country_state_city_picker: ^1.2.8
+  flutter_facebook_auth: ^5.0.11
+  flutter_sliding_up_panel: ^2.0.1
+
+
+
+
 flutter_icons:
   android: true
   image_path: "image/logo.jpg"
@@ -97,6 +103,8 @@ flutter:
   assets:
     - assets/address.json
     - assets/messenger_logo.svg
+    - assets/line.png
+    - assets/iconwealthi.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

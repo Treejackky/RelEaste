@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/route_names.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:go_router/go_router.dart';
 
-class ProfileEdit extends StatefulWidget {
+class Profile extends StatefulWidget {
   @override
-  _ProfileEditState createState() => _ProfileEditState();
+  _ProfileState createState() => _ProfileState();
 }
 
-class _ProfileEditState extends State<ProfileEdit> {
+class _ProfileState extends State<Profile> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController facebookIdController = TextEditingController();
   final _storage = const FlutterSecureStorage();
 
   Future<Map<String, String?>> readSecureData() async {
     final email = await _storage.read(key: 'email');
-    final fb_id = await _storage.read(key: 'fb_id');
+    final line_id = await _storage.read(key: 'line_id');
     return {
       'email': email,
-      'fb_id': fb_id,
+      'line_id': line_id,
     };
   }
 
@@ -26,14 +24,8 @@ class _ProfileEditState extends State<ProfileEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ProfileEdit'),
+        title: const Text('Profile'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.search),
-          ),
-        ],
       ),
       body: FutureBuilder<Map<String, String?>>(
         future: readSecureData(),
@@ -41,9 +33,9 @@ class _ProfileEditState extends State<ProfileEdit> {
           if (snapshot.hasData) {
             final data = snapshot.data!;
             final email = data['email'] ?? '';
-            final fb_id = data['fb_id'] ?? '';
+            final line_id = data['line_id'] ?? '';
             emailController.text = email;
-            facebookIdController.text = fb_id;
+            facebookIdController.text = line_id;
             return RefreshIndicator(
               onRefresh: _refreshData,
               child: ListView(
@@ -71,18 +63,21 @@ class _ProfileEditState extends State<ProfileEdit> {
                           children: [
                             TextField(
                               controller: emailController,
+                              enabled:
+                                  false, // Set enabled to false to make it read-only
                               decoration: InputDecoration(
                                 labelText: 'Email',
                               ),
-                              enabled: false,
                             ),
                             const SizedBox(height: 16),
                             TextField(
                               controller: facebookIdController,
+                              enabled:
+                                  false, // Set enabled to false to make it read-only
                               keyboardType: TextInputType.number,
                               maxLength: 15,
                               decoration: InputDecoration(
-                                labelText: 'Facebook ID (15 digits)',
+                                labelText: 'Line ID',
                               ),
                             ),
                           ],
@@ -105,20 +100,14 @@ class _ProfileEditState extends State<ProfileEdit> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.save),
-        onPressed: () async {
-          await writeSecureData('fb_id', facebookIdController.text);
-          context.goNamed(RouteNames.loading, queryParameters: {
-            "fn": "edit_user",
-            "route": "profile",
-          });
+        child: const Icon(Icons.edit),
+        onPressed: () {
+          // context.pushNamed(RouteNames.profileEdit);
+          Navigator.of(context).pushNamed('/profile_edit');
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
-  }
-
-  Future<void> writeSecureData(String key, String value) async {
-    await _storage.write(key: key, value: value);
   }
 
   Future<void> _refreshData() async {

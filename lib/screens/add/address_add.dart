@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../../../route_names.dart';
-import '../services/json_services.dart';
 import 'model/JsonData.dart';
+import 'services/json_services.dart';
 
 class AddressPage extends StatefulWidget {
   const AddressPage({
@@ -17,8 +14,11 @@ class AddressPage extends StatefulWidget {
 
 class _AddressPageState extends State<AddressPage> {
   final TextEditingController _textEditingController = TextEditingController();
+
   List<AddressData> _filteredData = [];
+
   final _storage = const FlutterSecureStorage();
+
   Future<void> writeSecureData(String key, String value) async {
     await _storage.write(key: key, value: value);
   }
@@ -97,7 +97,7 @@ class _AddressPageState extends State<AddressPage> {
                                   'province', data.getProvince()!);
                               await writeSecureData(
                                   'zipcode', data.getZipcode()!);
-                              context.pushNamed(RouteNames.map);
+                              Navigator.of(context).pushNamed('/map');
                             },
                             child: const Text('Pin Map'),
                           ),
